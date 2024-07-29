@@ -1,10 +1,9 @@
-import { getCourses } from "@/actions/get-courses";
 import { getProgess } from "@/actions/get-progress";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import CourseSidebar from "./_components/course-sidebar";
 import CourseNavbar from "./_components/course-navbar";
+import CourseSidebar from "./_components/course-sidebar";
 
 const CourseLayout = async ({
   children,
@@ -15,6 +14,11 @@ const CourseLayout = async ({
 }) => {
   const { userId } = auth();
   const { courseId } = params;
+
+  if (!userId) {
+    return redirect("/");
+  }
+
   const course = await db.course.findUnique({
     where: {
       id: courseId,
