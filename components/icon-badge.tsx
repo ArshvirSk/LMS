@@ -36,7 +36,7 @@ const IconVariants = cva("", {
   },
   defaultVariants: {
     variant: "default",
-    size: "default",
+    iconSize: "default",
   },
 });
 
